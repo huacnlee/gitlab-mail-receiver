@@ -2,6 +2,20 @@
 
 This gem can allow your GitLab to receive emails to create Issue comments like GitHub.
 
+## Features
+
+- Receive Email reply to check Issue/MergeRequest and create comment.
+- Very easy to configure on GitLab project.
+- Cleanup the mail content.
+
+The WorkFlow:
+
+```
+                 /-->  [ Notify ] ----------------> [Mail Server] <---> [Mail Client]
+  { GitLab } ---/                                         ^
+       ^                                                  |
+       |-------< [ gitlab-mail-receiver ] <---- check --> |
+```
 
 ## Requirements
 
@@ -17,7 +31,7 @@ Add this gem in GitLab project Gemfile:
 gem 'gitlab-mail-receiver'
 ```
 
-Add config in GitLab config/initializes/gitlab-mail-receiver.rb
+Create initialize file in GitLab `config/initializes/gitlab-mail-receiver.rb`:
 
 ```rb
 require 'gitlab-mail-receiver'
@@ -41,5 +55,14 @@ end
 
 ```
 $ cd gitlab
-$ RAILS_ENV=production bundle exec gitlab-mail-receiver
+$ bundle exec gitlab-mail-receiver
+```
+
+> NOTE: The daemon log will write to `$rails_root/log/gitlab-mail-receiver.log`
+
+## Run in production
+
+```
+$ cd gitlab
+$ RAILS_ENV=production nohup bundle exec gitlab-mail-receiver &
 ```
