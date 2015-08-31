@@ -20,7 +20,7 @@ The WorkFlow:
 ## Requirements
 
 - GitLab 7.13 (I just tested on this version.)
-- A Email can receive mail via IMAP.
+- A Email can receive mail via POP3/IMAP.
 
 
 ## Configuration
