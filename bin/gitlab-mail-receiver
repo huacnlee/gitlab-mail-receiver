@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+require 'daemons'
+
+ENV['GITLAB_ROOT'] = ENV['GITLAB_ROOT'] || Dir.pwd
+
+script = ::File.expand_path('../../lib/mail-receiver-server.rb', __FILE__)
+options = {
+  app_name: 'gitlab-mail-receiver',
+  multiple: false,
+  logfilename: '/dev/null'
+}
+
+Daemons.run(script, options)
