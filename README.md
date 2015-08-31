@@ -2,6 +2,8 @@
 
 This gem can allow your GitLab to receive emails to create Issue comments like GitHub.
 
+[中文介绍](https://ruby-china.org/topics/27143)
+
 ## Features
 
 - Receive Email reply to check Issue/MergeRequest and create comment.
