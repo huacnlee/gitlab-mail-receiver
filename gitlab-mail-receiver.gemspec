@@ -14,6 +14,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency("activesupport", ">= 4.0")
 
   s.bindir = 'bin'
+  s.executables << 'gitlab-mail-receiver'
   s.files        = Dir.glob("lib/**/*") + %w(README.md LICENSE)
   s.require_path = 'lib'
 end

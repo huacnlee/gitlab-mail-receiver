@@ -40,5 +40,6 @@ end
 ## Run
 
 ```
-$ gitlab-mail-receiver
+$ cd gitlab
+$ RAILS_ENV=production bundle exec gitlab-mail-receiver
 ```
