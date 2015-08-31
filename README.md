@@ -28,10 +28,10 @@ MailReceiver.configure do
   self.sender = 'xxx@your-mail-host.com'
   self.poll_interval = 5
   self.imap = {
-    host: 'imap.your-mail-host.com'
+    server: 'imap.your-mail-host.com'
     port: 993
     ssl: true
-    email: 'xxx@your-mail-host.com'
+    username: 'xxx@your-mail-host.com'
     password: 'your-password'
   }
 end

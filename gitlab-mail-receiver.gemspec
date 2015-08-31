@@ -11,8 +11,6 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = ">= 1.3.6"
 
   s.add_runtime_dependency("mailman", '~> 0.7.3')
-  s.add_runtime_dependency("daemons", '>= 1.0.0')
-  s.add_runtime_dependency("actionpack", ">= 4.0")
   s.add_runtime_dependency("activesupport", ">= 4.0")
 
   s.bindir = 'bin'

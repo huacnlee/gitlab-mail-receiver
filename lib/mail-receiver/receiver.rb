@@ -63,12 +63,11 @@ module MailReceiver
         return
       end
 
-      params = merge_request? ? process_mr! : process_issue!
-      return if params.blank?
+      note_params = merge_request? ? process_mr! : process_issue!
+      return if note_params.blank?
 
-      params[:project_id] = project.id
-      params[:note] = body
-      note_params = params.permit(:note, :noteable_id, :noteable_type, :project_id)
+      note_params[:project_id] = project.id
+      note_params[:note] = body
 
       @note = Notes::CreateService.new(project, current_user, note_params).execute
       logger.info "Note #{@note.id} created."
@@ -82,7 +81,7 @@ module MailReceiver
       end
 
       logger.info "Found MergeRequest: #{@mr.id}"
-      ActionController::Parameters.new({ noteable_type: 'MergeRequest', noteable_id: @mr.id })
+      { noteable_type: 'MergeRequest', noteable_id: @mr.id }
     end
 
     def process_issue!
@@ -93,7 +92,7 @@ module MailReceiver
       end
 
       logger.info "Found issue: #{@issue.id}"
-      ActionController::Parameters.new({ noteable_type: 'Issue', noteable_id: @issue.id })
+      { noteable_type: 'Issue', noteable_id: @issue.id }
     end
 
     def current_user

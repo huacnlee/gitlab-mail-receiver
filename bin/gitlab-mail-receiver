@@ -1,13 +1,26 @@
 #!/usr/bin/env ruby
-require 'daemons'
+require 'rubygems'
+require 'bundler/setup'
+require_relative '../lib/gitlab-mail-receiver'
 
-ENV['GITLAB_ROOT'] = ENV['GITLAB_ROOT'] || Dir.pwd
+app_root = ENV['GITLAB_ROOT'] || "."
 
-script = ::File.expand_path('../../lib/mail-receiver-server.rb', __FILE__)
-options = {
-  app_name: 'gitlab-mail-receiver',
-  multiple: false,
-  logfilename: '/dev/null'
-}
+begin
+  rails_env = ::File.expand_path('./config/environment', app_root)
+  require rails_env
+rescue => e
+  puts "You need run this command under GitLab root."
+  return
+end
 
-Daemons.run(script, options)
+logger = Logger.new(File.join(app_root, 'log/gitlab-mail-receiver.log'))
+Mailman.config.logger = logger
+Mailman.config.rails_root = app_root
+
+logger.info "Starting Mailman ..."
+Mailman::Application.run do
+  to '%user%+%suffix%@%host%' do
+    @receiver = MailReceiver::Receiver.new(message, logger: logger)
+    @receiver.process!
+  end
+end
