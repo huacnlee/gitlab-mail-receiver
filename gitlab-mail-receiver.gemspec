@@ -5,8 +5,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Jason Lee"]
   s.email       = ["huacnlee@gmail.com"]
   s.homepage    = "http://github.com/huacnlee/gitlab-mail-receiver"
-  s.summary     = "Allow your GitLab to receive mails to create Issue comment"
-  s.description = "Allow your GitLab to receive mails to create Issue comment."
+  s.summary     = "Allow your GitLab receive mails to create Issue comment"
+  s.description = "The way of allow your GitLab support Email receive and parse the email content, and find Issue/MergeRequest to create reply."
   s.license     = 'MIT'
   s.required_rubygems_version = ">= 1.3.6"
 
