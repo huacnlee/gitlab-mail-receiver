@@ -1,5 +1,7 @@
 # GitLab Mail Receiver
 
+[![Gem Version](https://badge.fury.io/rb/gitlab-mail-receiver.svg)](http://badge.fury.io/rb/gitlab-mail-receiver)
+
 This gem can allow your GitLab to receive emails to create Issue comments like GitHub.
 
 [中文介绍](https://ruby-china.org/topics/27143)
