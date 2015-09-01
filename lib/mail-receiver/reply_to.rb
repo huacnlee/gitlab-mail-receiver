@@ -40,23 +40,20 @@ module MailReceiver
     end
 
     def convert_able(model)
+      res = { id: model.iid }
+      if defined?(@note)
+        # gitlab/app/mailers/emails/notes.rb 里面会声明 @note
+        res.merge!({ n: @note.id })
+      end
+
       if model.class.name == 'Issue'
-        return { t: 'i', id: model.iid }
+        res.merge({ t: 'i' })
+        return res
       end
 
       if model.class.name == 'MergeRequest'
-        return { t: 'm', id: model.iid }
-      end
-
-
-      if model.class.name == 'Note'
-        if model.noteable_type == 'Issue' && model.noteable
-          return { t: 'i', id: model.noteable.iid, n: model.id }
-        end
-
-        if model.noteable_type == 'MergeRequest' && model.noteable
-          return { t: 'm', id: model.noteable.iid, n: model.id }
-        end
+        res.merge({ t: 't' })
+        return res
       end
 
       return nil
