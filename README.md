@@ -1,6 +1,6 @@
 # GitLab Mail Receiver
 
-[![Gem Version](https://badge.fury.io/rb/gitlab-mail-receiver.svg)](http://badge.fury.io/rb/gitlab-mail-receiver)
+[![Gem Version](https://badge.fury.io/rb/gitlab-mail-receiver.svg)](http://badge.fury.io/rb/gitlab-mail-receiver) [![CI Status](https://travis-ci.org/huacnlee/gitlab-mail-receiver.svg)](https://travis-ci.org/huacnlee/gitlab-mail-receiver)
 
 The way of allow your GitLab support Email receive and parse the email content, and find Issue/MergeRequest to create reply.
 
