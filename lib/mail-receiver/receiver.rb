@@ -80,7 +80,16 @@ module MailReceiver
       return if note_params.blank?
 
       note_params[:project_id] = project.id
-      note_params[:target_id] = target_id
+
+      # relation to target Note
+      if target_id
+        target_note = project.notes.find_by_id(target_id)
+        if target_note
+          note_params[:commit_id] = target_note.commit_id
+          note_params[:line_code] = target_note.line_code
+        end
+      end
+
       note_params[:note] = body
 
       @note = Notes::CreateService.new(project, current_user, note_params).execute
