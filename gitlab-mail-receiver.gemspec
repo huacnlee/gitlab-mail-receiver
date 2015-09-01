@@ -1,6 +1,8 @@
+require File.expand_path('../lib/mail-receiver/version', __FILE__)
+
 Gem::Specification.new do |s|
   s.name        = "gitlab-mail-receiver"
-  s.version     = "0.0.1"
+  s.version     = MailReceiver.version
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Jason Lee"]
   s.email       = ["huacnlee@gmail.com"]
@@ -13,6 +15,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency("mailman", '~> 0.7.3')
   s.add_runtime_dependency("activesupport", ">= 4.0")
   s.add_runtime_dependency("rack", '>= 1.0')
+  s.add_runtime_dependency("thor", ">= 0.17.0")
 
   s.bindir = 'bin'
   s.executables << 'gitlab-mail-receiver'

@@ -55,18 +55,43 @@ MailReceiver.configure do
 end
 ```
 
-## Run
+## Run commands
 
 ```
 $ cd gitlab
-$ bundle exec gitlab-mail-receiver
-```
+$ bundle exec gitlab-mail-receiver -h
+Commands:
+  gitlab-mail-receiver help [COMMAND]  # Describe available commands or one specific command
+  gitlab-mail-receiver restart         # Restart Daemon
+  gitlab-mail-receiver start           # Start Daemon
+  gitlab-mail-receiver stop            # Stop Daemon
+  gitlab-mail-receiver version         # Show version
 
-> NOTE: The daemon log will write to `$rails_root/log/gitlab-mail-receiver.log`
+Options:
+  [--root=ROOT]
+                 # Default: ./
+$ bundle exec gitlab-mail-receiver start
+Started gitlab-mail-receiver on pid: 59386
+I, [2015-09-01T13:36:50.813124 #59387]  INFO -- : Celluloid 0.17.1.2 is running in BACKPORTED mode. [ http://git.io/vJf3J ]
+...
+```
 
 ## Run in production
 
 ```
 $ cd gitlab
-$ RAILS_ENV=production nohup bundle exec gitlab-mail-receiver &
+$ RAILS_ENV=production bundle exec gitlab-mail-receiver start -d
+pid_file: ./tmp/pids/gitlab-mail-receiver.pid
+log_file: ./log/gitlab-mail-receiver.log
+Started gitlab-mail-receiver on pid: 58861
+```
+
+> NOTE: The daemon log will write to `$rails_root/log/gitlab-mail-receiver.log`
+
+Stop daemon
+
+```bash
+$ bundle exec gitlab-mail-receiver stop
+Stoping gitlab-mail-receiver... [OK]
+```
 ```

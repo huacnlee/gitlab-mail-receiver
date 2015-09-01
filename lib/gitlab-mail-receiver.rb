@@ -2,6 +2,7 @@ require_relative './mail-receiver/encoder'
 require_relative './mail-receiver/body_parser'
 require_relative './mail-receiver/receiver'
 require_relative './mail-receiver/reply_to'
+
 require "mailman"
 require 'active_support/core_ext'
 
