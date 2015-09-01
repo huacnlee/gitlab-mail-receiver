@@ -27,7 +27,7 @@ module MailReceiver
         Mailman.config.logger.info "Starting gitlab-mail-receiver..."
         Mailman::Application.run do
           to '%user%+%suffix%@%host%' do
-            @receiver = MailReceiver::Receiver.new(message, logger: logger)
+            @receiver = MailReceiver::Receiver.new(message, logger: Mailman.config.logger)
             @receiver.process!
           end
         end

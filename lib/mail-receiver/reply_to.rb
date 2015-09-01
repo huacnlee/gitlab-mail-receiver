@@ -4,9 +4,6 @@ require 'json'
 module MailReceiver
   module ReplyTo
     def mail_new_thread(model, headers = {}, &block)
-      headers['Message-ID'] = message_id(model)
-      headers['X-GitLab-Project'] = "#{@project.name} | " if @project
-
       # Mail receiver
       headers[:reply_to] = reply_to_address(model)
 
@@ -14,10 +11,6 @@ module MailReceiver
     end
 
     def mail_answer_thread(model, headers = {}, &block)
-      headers['In-Reply-To'] = message_id(model)
-      headers['References'] = message_id(model)
-      headers['X-GitLab-Project'] = "#{@project.name} | " if @project
-
       if headers[:subject]
         headers[:subject].prepend('Re: ')
       end
