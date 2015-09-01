@@ -24,7 +24,7 @@ module MailReceiver
     end
 
     def merge_request?
-      @merge_request ||= hash_data[:t].downcase == 'm'
+      @merge_request ||= (hash_data[:t] || 'i').downcase == 'm'
     end
 
     def body
