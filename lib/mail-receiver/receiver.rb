@@ -12,15 +12,19 @@ module MailReceiver
     end
 
     def project_slug
-      @project_slug ||= id_prefix.split(/!|#/).first
+      hash_data[:p]
     end
 
     def issue_id
-      @issue_id ||= id_prefix.split(/!|#/).last
+      hash_data[:id]
+    end
+
+    def target_id
+      hash_data[:n]
     end
 
     def merge_request?
-      @merge_request ||= id_prefix.match('!')
+      @merge_request ||= hash_data[:t].downcase == 'm'
     end
 
     def body
@@ -42,14 +46,23 @@ module MailReceiver
       @prefix ||= to.split('@').first
     end
 
+    # foo+p=chair/chair&id=123 => { p: chair/chair, id: 123 }
+    def hash_data
+      return @hash_data if defined?(@hash_data)
+      return {} if not prefix.include?('+')
+      @hash_data = Encoder.decode(prefix.split('+').last)
+      return @hash_data
+    end
+
     def inspect
-      { project_slug: project_slug, issue_id: issue_id, merge_request: merge_request?, to: to, body: body}
+      { project_slug: project_slug, issue_id: issue_id, target_id: target_id, merge_request: merge_request?, to: to, body: body}
     end
 
     def project
       @project ||= Project.find_with_namespace(project_slug)
     rescue => e
       logger.warn "Project: #{project_slug} record not found."
+      nil
     end
 
     def process!
@@ -67,6 +80,7 @@ module MailReceiver
       return if note_params.blank?
 
       note_params[:project_id] = project.id
+      note_params[:target_id] = target_id
       note_params[:note] = body
 
       @note = Notes::CreateService.new(project, current_user, note_params).execute
@@ -99,17 +113,8 @@ module MailReceiver
       @current_user ||= User.find_by_any_email(from)
     end
 
-    private
-
     def logger
       @logger ||= Logger.new($stdout)
-    end
-
-    # foo+chair/chair!123 => chair/chair!123
-    def id_prefix
-      return @id_prefix if defined?(@id_prefix)
-      @id_prefix = prefix.split('+').last
-      return @id_prefix
     end
   end
 end

@@ -1,3 +1,4 @@
+require_relative './mail-receiver/encoder'
 require_relative './mail-receiver/body_parser'
 require_relative './mail-receiver/receiver'
 require_relative './mail-receiver/reply_to'
@@ -15,6 +16,10 @@ end
 Mailman::Configuration.send(:include, MailmanConfig)
 
 module MailReceiver
+  def self.config
+    Mailman.config
+  end
+
   def self.configure(&block)
     Mailman.config.instance_exec(&block)
   end

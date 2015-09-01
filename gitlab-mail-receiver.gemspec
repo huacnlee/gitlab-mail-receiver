@@ -12,6 +12,7 @@ Gem::Specification.new do |s|
 
   s.add_runtime_dependency("mailman", '~> 0.7.3')
   s.add_runtime_dependency("activesupport", ">= 4.0")
+  s.add_runtime_dependency("rack", '>= 1.0')
 
   s.bindir = 'bin'
   s.executables << 'gitlab-mail-receiver'

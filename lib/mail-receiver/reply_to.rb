@@ -1,4 +1,5 @@
 require 'mailman'
+require 'json'
 
 module MailReceiver
   module ReplyTo
@@ -29,38 +30,39 @@ module MailReceiver
 
     protected
     def reply_to_address(model)
-      able_path = convert_able_path(model)
-      return default_email_reply_to if able_path.blank?
+      hash = convert_able(model)
+      return default_email_reply_to if hash.blank?
       return default_email_reply_to if @project.blank?
 
-      slug = "#{@project.path_with_namespace}#{able_path}"
 
-      Mailman.config.sender.sub('@', "+#{slug}@")
+      hash.merge!({ p: @project.path_with_namespace })
+
+      suffix = Encoder.encode(hash)
+
+      Mailman.config.sender.sub('@', "+#{suffix}@")
     end
-
-
 
     def default_email_reply_to
       Gitlab.config.gitlab.email_reply_to
     end
 
-    def convert_able_path(model)
+    def convert_able(model)
       if model.class.name == 'Issue'
-        return "##{model.iid}"
+        return { t: 'i', id: model.iid }
       end
 
       if model.class.name == 'MergeRequest'
-        return "!#{model.iid}"
+        return { t: 'm', id: model.iid }
       end
 
 
       if model.class.name == 'Note'
         if model.noteable_type == 'Issue' && model.noteable
-          return "##{model.noteable.iid}"
+          return { t: 'i', id: model.noteable.iid, n: model.id }
         end
 
         if model.noteable_type == 'MergeRequest' && model.noteable
-          return "!#{model.noteable.iid}"
+          return { t: 'm', id: model.noteable.iid, n: model.id }
         end
       end
 
