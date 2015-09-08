@@ -94,4 +94,21 @@ Stop daemon
 $ bundle exec gitlab-mail-receiver stop
 Stoping gitlab-mail-receiver... [OK]
 ```
+
+
+### Daemon Signals
+
+gitlab-mail-receiver has support the [Unix process signal](https://en.wikipedia.org/wiki/Unix_signal) to manage the daemon.
+
+You can use the `kill` command to send the signal to the master process.
+
+- USR2 - Hot reload processes.
+- QUIT - Stop processes.
+
 ```
+$ ps aux | grep gitlab-mail-receiver
+git      15488  0.2  0.2 612612 242920 pts/3   Sl   14:24   0:16 gitlab-mail-receiver [worker]
+git      16320  0.0  0.0 309100 43004 pts/3    Sl   11:54   0:00 gitlab-mail-receiver [master]
+$ kill -USR2 15488
+```
+
