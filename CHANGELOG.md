@@ -1,3 +1,7 @@
+## 0.0.4
+
+- Fix Mail body parser bug, the previous version will lose the content after the newline.
+
 ## 0.0.3
 
 - Fixed the MergeRequest can't create Note with reply email bug, missing the `t` field in the `reply_to` address.
