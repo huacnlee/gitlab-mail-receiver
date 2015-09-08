@@ -1,6 +1,7 @@
 ## 0.0.4
 
 - Fix Mail body parser bug, the previous version will lose the content after the newline.
+- Body parse don't covert chars, to fix Chinese charset encoding bug.
 
 ## 0.0.3
 
