@@ -1,4 +1,5 @@
 require 'rubygems'
+require 'ostruct'
 
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
@@ -6,7 +7,7 @@ $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 require "gitlab-mail-receiver"
 
 # Fake models
-class User
+class User < OpenStruct
   class << self
     def find_by_any_email(email)
       return nil if email.blank?
@@ -15,7 +16,7 @@ class User
   end
 end
 
-class Project
+class Project < OpenStruct
   class << self
     def find_with_namespace(slug)
       raise 'not found project' if slug.blank?
@@ -23,6 +24,11 @@ class Project
     end
   end
 end
+
+class Note < OpenStruct; end
+class Issue < OpenStruct; end
+class MergeRequest < OpenStruct; end
+class Other < OpenStruct; end
 
 MailReceiver.configure do
   self.sender = 'reply@gitlab.com'

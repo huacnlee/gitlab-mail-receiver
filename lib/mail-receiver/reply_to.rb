@@ -47,12 +47,12 @@ module MailReceiver
       end
 
       if model.class.name == 'Issue'
-        res.merge({ t: 'i' })
+        res.merge!({ t: 'i' })
         return res
       end
 
       if model.class.name == 'MergeRequest'
-        res.merge({ t: 't' })
+        res.merge!({ t: 'm' })
         return res
       end
 
