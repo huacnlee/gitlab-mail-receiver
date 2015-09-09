@@ -2,6 +2,7 @@
 
 - Fix Mail body parser bug, the previous version will lose the content after the newline.
 - Body parse don't covert chars, to fix Chinese charset encoding bug.
+- Fix the encoding error, some mail receive content encoding not UTF-8, force convert it.
 
 ## 0.0.3
 

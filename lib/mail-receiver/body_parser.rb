@@ -4,11 +4,11 @@ module MailReceiver
     def extract
       self.decoded_part.
       # Most providers start it off with that "On" date line.
-      # reverse.split(' nO')[-1].reverse.
+      reverse.split(' nO')[-1].reverse.
       # Fancy sigs and sigs need to be discarded
       chomp.
       # Strip leading and trailing whitespace
-      strip
+      strip.force_encoding('utf-8')
     end
 
     def decoded_part

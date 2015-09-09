@@ -22,6 +22,10 @@ describe 'BodyParser' do
       let(:body) { 'Hello world' }
 
       it { is_expected.to eq body }
+
+      it 'should return utf-8 encoding' do
+        expect(subject.encoding.to_s).to eq 'UTF-8'
+      end
     end
 
     context 'multlines' do
@@ -44,6 +48,15 @@ describe 'BodyParser' do
       end
 
       it { is_expected.to eq body }
+    end
+
+    context 'GBK encoding' do
+      let(:body) { 'Hello 邮件'.force_encoding('GBK') }
+
+      it 'should work' do
+        expect(subject).to eq 'Hello 邮件'
+        expect(subject.encoding.to_s).to eq 'UTF-8'
+      end
     end
   end
 end
