@@ -3,9 +3,11 @@ require_relative './mail-receiver/body_parser'
 require_relative './mail-receiver/receiver'
 require_relative './mail-receiver/reply_to'
 
-require "mailman"
+require 'mailman'
+require 'email_reply_parser'
 require 'active_support/core_ext'
 
+# Extend Mailman config to add sender attribute
 module MailmanConfig
   extend ActiveSupport::Concern
 
@@ -16,6 +18,7 @@ end
 
 Mailman::Configuration.send(:include, MailmanConfig)
 
+# MailReceiver
 module MailReceiver
   def self.config
     Mailman.config

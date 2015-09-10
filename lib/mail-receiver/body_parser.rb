@@ -1,22 +1,15 @@
-# Mail body context parser
 module MailReceiver
+  # Mail body context parser
   module BodyParser
     def extract
-      self.decoded_part.
-      # Most providers start it off with that "On" date line.
-      reverse.split(' nO')[-1].reverse.
-      # Fancy sigs and sigs need to be discarded
-      chomp.
-      # Strip leading and trailing whitespace
-      strip.force_encoding('utf-8')
-    end
-
-    def decoded_part
-      self.part.decoded
+      EmailReplyParser.read(part.to_s)
+        .fragments.map(&:to_s)
+        .join("\n").rstrip
+        .force_encoding('utf-8')
     end
 
     def part
-      self.mail.multipart? ? self.mail.parts.first.body : self.mail.body
+      mail.multipart? ? mail.parts.first.body : mail.body
     end
   end
 end

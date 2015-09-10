@@ -33,7 +33,7 @@ describe 'BodyParser' do
       it { is_expected.to eq body }
     end
 
-    context 'Has - prefix' do
+    context 'Has - prefix & > prefix' do
       let(:body) do
         %(This is the first line.
 

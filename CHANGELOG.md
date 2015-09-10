@@ -1,3 +1,7 @@
+## 0.1.0
+
+- User GitHub email_reply_parser gem to parse the mail body.
+
 ## 0.0.4
 
 - Fix Mail body parser bug, the previous version will lose the content after the newline.
