@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    gitlab-mail-receiver (0.0.4)
+    gitlab-mail-receiver (0.1.0)
       activesupport (>= 4.0)
       email_reply_parser (~> 0.5.8)
       mailman (~> 0.7.3)
