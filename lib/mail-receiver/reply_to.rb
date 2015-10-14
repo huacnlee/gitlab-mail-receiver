@@ -40,6 +40,10 @@ module MailReceiver
     end
 
     def convert_able(model)
+      if %W(Issue MergeRequest).index(model.class.name) == -1
+        return nil
+      end
+
       res = { id: model.iid }
       if defined?(@note)
         # gitlab/app/mailers/emails/notes.rb 里面会声明 @note
