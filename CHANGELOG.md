@@ -1,3 +1,7 @@
+## 0.1.1
+
+- Fix bug, Commit Email can't work, because its not have iid method, skip it.
+
 ## 0.1.0
 
 - User GitHub email_reply_parser gem to parse the mail body.

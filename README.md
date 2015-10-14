@@ -6,6 +6,10 @@ The way of allow your GitLab support Email receive and parse the email content, 
 
 [中文介绍](https://ruby-china.org/topics/27143)
 
+------------
+
+> PS: After my created this gem, GitLab have released 8.0, and it included same feature. So you don't need this.
+
 ## Features
 
 - Receive Email reply to check Issue/MergeRequest and create comment.
